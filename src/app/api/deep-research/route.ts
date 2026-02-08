@@ -1,7 +1,7 @@
 import { createDataStreamResponse } from "ai";
 import { ResearchState } from "./types";
 import { deepResearch } from "./main";
-import {ModelProvider} from "@/store/deepResearch";
+import { ModelProvider } from "@/config/models";
 
 export async function POST(req: Request) {
 	try {

@@ -12,7 +12,6 @@ import {
   Download, 
   FileText, 
   Loader2, 
-  Share2, 
   Copy, 
   CheckCircle2
 } from 'lucide-react'

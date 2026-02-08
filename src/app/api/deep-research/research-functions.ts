@@ -146,9 +146,12 @@ export async function extractContent(
 	
 		activityTracker.add("extract","complete",`Extracted content from ${url}`);
 	
+		interface ExtractionResult {
+			summary: string;
+		}
 		return {
 			url,
-			summary: (results as any).summary,
+			summary: (results as ExtractionResult).summary,
 		};
 	}catch(err){
 		console.log("error: ", err);

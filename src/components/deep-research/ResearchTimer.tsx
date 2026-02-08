@@ -3,7 +3,7 @@
 import { useDeepResearchStore } from '@/store/deepResearch'
 import React, { useEffect, useState } from 'react'
 import { Card } from '../ui/card'
-import { Clock, BarChart3 } from 'lucide-react'
+import { Clock } from 'lucide-react'
 
 const formatTime = (timeMs: number): string => {
   const minutes = Math.floor(timeMs / 60000);
