@@ -8,6 +8,25 @@ import ResearchReport from "./ResearchReport";
 import ResearchTimer from "./ResearchTimer";
 import CompletedQuestions from "./CompletedQuestions";
 
+interface ActivityMessage {
+    type: 'activity';
+    content: {
+        type: 'search' | 'extract' | 'analyze' | 'generate' | 'planning';
+        status: 'pending' | 'complete' | 'warning' | 'error';
+        message: string;
+        timestamp: number;
+        completionSteps: number;
+        tokenUsed: number;
+    };
+}
+
+interface ReportMessage {
+    type: 'report';
+    content: string;
+}
+
+type Message = ActivityMessage | ReportMessage;
+
 const QnA = () => {
 	const { questions, isCompleted, topic, answers, setIsLoading, setActivities, setSources, setReport, isLoading, modelProvider, modelId } = useDeepResearchStore();
     const { append, data } = useChat({
@@ -18,7 +37,9 @@ const QnA = () => {
         if (!data) return;
 
         const messages = data as unknown[];
-        const activities = messages.filter(msg => typeof msg === 'object' && (msg as any).type === 'activity').map(msg => (msg as any).content)
+        const activities = messages.filter((msg): msg is ActivityMessage => 
+            typeof msg === 'object' && msg !== null && (msg as Message).type === 'activity'
+        ).map(msg => msg.content);
 
         setActivities(activities)
         const sources = activities.filter(activity => activity.type === 'extract' && activity.status === 'complete')
@@ -32,8 +53,10 @@ const QnA = () => {
         })
 
         setSources(sources)
-        const reportData = messages.find(msg => typeof msg === 'object' && (msg as any).type === 'report')
-        const report = typeof (reportData as any)?.content == "string"? (reportData as any).content : ""
+        const reportData = messages.find((msg): msg is ReportMessage => 
+            typeof msg === 'object' && msg !== null && (msg as Message).type === 'report'
+        )
+        const report = reportData && typeof reportData.content === "string" ? reportData.content : ""
         setReport(report)
 
         setIsLoading(isLoading)

@@ -1,6 +1,11 @@
 import { Activity, ResearchState } from "./types";
 
-export const createActivityTracker = (dataStream: any, researchState: ResearchState) => {
+interface DataStream {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    writeData: (value: any) => void;
+}
+
+export const createActivityTracker = (dataStream: DataStream, researchState: ResearchState) => {
 
     return {
         add(type: Activity['type'], status: Activity['status'] ,message:Activity['message']) {

@@ -1,8 +1,6 @@
-import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 import Exa from "exa-js"
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createOpenAI } from '@ai-sdk/openai';
-import { createDeepSeek } from '@ai-sdk/deepseek';
 
 export const exa = new Exa(process.env.EXA_SEARCH_API_KEY || "");
 

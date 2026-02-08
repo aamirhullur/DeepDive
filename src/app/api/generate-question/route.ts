@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
-import { generateObject, generateText, LanguageModel, Output } from 'ai';
-import { createOpenRouter } from '@openrouter/ai-sdk-provider';
+import { generateObject, LanguageModel } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { z } from "zod";
 import { ModelProvider } from "@/config/models";
-// import { deepseek } from "@ai-sdk/deepseek";
 
 // const openrouter = createOpenRouter({
 //     apiKey: process.env.OPENROUTER_API_KEY || "",

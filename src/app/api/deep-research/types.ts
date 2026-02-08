@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { ModelProvider } from "@/store/deepResearch";
+import { ModelProvider } from "@/config/models";
 
 export interface ResearchFindings {
     summary: string,
