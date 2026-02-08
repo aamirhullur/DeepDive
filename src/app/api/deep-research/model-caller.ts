@@ -19,7 +19,7 @@ const getModelInstance = (provider: ModelProvider, modelId: string, taskType: st
 			report: "REPORT",
 			generate: "REPORT", 
 	};
-
+ 
 	const mappedTaskType = taskTypeMapping[taskType.toLowerCase()] as TaskType;
 	if (!mappedTaskType) {
 			throw new Error(`Invalid task type: ${taskType}`);

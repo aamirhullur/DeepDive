@@ -14,6 +14,7 @@ interface DeepResearchState {
     report: string,
     modelProvider: ModelProvider;
     modelId: string | null; 
+    visitorId: string | null;
 }
 
 interface DeepResearchActions {   
@@ -28,6 +29,7 @@ interface DeepResearchActions {
     setReport: (report: string) => void,
     setModelProvider: (provider: ModelProvider) => void,
     setSelectedModel: (provider: ModelProvider, modelId: string) => void; 
+    setVisitorId: (id: string | null) => void;
 }
 
 const getDefaultProvider = (): ModelProvider => {
@@ -54,6 +56,7 @@ const initialState: DeepResearchState = {
     report: "",
     modelProvider: defaultProvider,
     modelId: getDefaultModelId(defaultProvider),
+    visitorId: null,
 }
 
 export const useDeepResearchStore = create<DeepResearchState & DeepResearchActions>((set) => ({
@@ -69,4 +72,5 @@ export const useDeepResearchStore = create<DeepResearchState & DeepResearchActio
     setReport: (report: string) => set({ report }),
     setModelProvider: (modelProvider: ModelProvider) => set({ modelProvider }), 
     setSelectedModel: (provider: ModelProvider, modelId: string) => set({ modelProvider: provider, modelId: modelId }),
+    setVisitorId: (visitorId: string|null) => set({ visitorId }),
 }));

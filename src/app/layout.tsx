@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Dancing_Script, Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
 	variable: "--font-inter",
@@ -29,6 +30,7 @@ export default function RootLayout({
 				className={`${inter.variable} ${dancingScript.variable} font-inter antialiased bg-gradient-to-b from-slate-50 to-slate-100`}
 			>
 				{children}
+				<Toaster />
 			</body>
 		</html>
 	);

@@ -9,8 +9,8 @@ import ResearchTimer from "./ResearchTimer";
 import CompletedQuestions from "./CompletedQuestions";
 
 const QnA = () => {
-	const { questions, isCompleted, topic, answers, setIsLoading, setActivities, setSources, setReport, isLoading, modelProvider, modelId } = useDeepResearchStore();
-    const { append, data } = useChat({
+	const { questions, isCompleted, topic, answers, setIsLoading, setActivities, setSources, setReport, isLoading, modelProvider, modelId, visitorId } = useDeepResearchStore();
+    const { append, data, error } = useChat({
         api:"/api/deep-research"
     });
 
@@ -40,7 +40,7 @@ const QnA = () => {
     }, [data, setActivities, setSources, setReport, setIsLoading, isLoading])
 
     useEffect(() => {
-        if(isCompleted && questions.length > 0) {
+        if(isCompleted && questions.length > 0 && visitorId) {
             // Reset previous research data when starting new research
             setActivities([]);
             setSources([]);
@@ -58,11 +58,25 @@ const QnA = () => {
                     clarifications: clarifications,
                     modelProvider: modelProvider,
                     modelId: modelId, 
+                    visitorId: visitorId,
                 })
             })
         }
-    }, [isCompleted, questions, answers, topic, append, modelProvider, modelId, setActivities, setSources, setReport])
+        else if (isCompleted && !visitorId) {
+            console.error("Cannot start research without visitor ID.");
+            // Optionally show an error message to the user
+            setIsLoading(false);
+            return;
+        }
+    }, [isCompleted, questions, answers, topic, append, modelProvider, modelId, setActivities, setSources, setReport, setIsLoading, visitorId]);
 
+    useEffect(() => {
+        if (error) {
+            console.error("Error in chat:", error);
+            // Optionally show an error message to the user
+            setIsLoading(false);
+        }
+    }, [error, setIsLoading]);
 	return (
 		<div className="w-full flex flex-col items-center mb-16">
             <div className="w-full max-w-3xl space-y-6">
